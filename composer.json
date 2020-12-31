@@ -1,0 +1,31 @@
+{
+  "name": "clarkphp/fio-php-sdk",
+  "type": "library",
+  "description": "Client for using Foundation for Interwallet Operability Web API",
+  "license": "MIT",
+  "authors": [
+    {
+      "name": "Clark Everetts",
+      "email": "clark.everetts@gmail.com"
+    }
+  ],
+  "autoload": {
+    "psr-4": {
+      "ClarkPhp\\FioPhpSdk\\": "src/"
+    }
+  },
+  "require": {
+    "php": "^7.3|^8",
+    "guzzlehttp/guzzle": "^7.0"
+  },
+  "autoload-dev": {
+    "psr-4": {
+      "ClarkPhpTest\\FioPhpSdk\\": "tests/"
+    }
+  },
+  "require-dev": {
+    "pds/skeleton": "^1.0",
+    "phpunit/phpunit": "^9.0",
+    "psalm/phar": "^4.0"
+  }
+}

@@ -1,0 +1,15 @@
+; custom @package docblock value
+package = ClarkPhp.FioSdk
+
+; commands to use for phpunit and phpdoc
+[commands]
+phpunit = /usr/local/bin/phpunit
+phpdoc = /usr/local/bin/phpDocumentor
+
+; names for support files
+[files]
+changes = CHANGELOG.md
+contributing = CONTRIBUTING.md
+license = LICENSE.md
+phpunit = phpunit.xml.dist
+readme = README.md
