@@ -1,6 +1,6 @@
 MIT License
 
-Copyright (c) 2020 Clark Everetts
+Copyright (c) 2020-2021 Clark Everetts
 
 (If eventually this becomes useful to the project, Copyright could become that of Foundation for Interwallet Operability)
 
