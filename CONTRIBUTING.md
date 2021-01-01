@@ -27,12 +27,22 @@ To run tests:
 
   If you don't have `composer` installed, download it from https://getcomposer.org/download/
 
-- Run the tests using the "test" command shipped in the `composer.json`:
+
+- TODO: Run the tests using the "test" command shipped in the `composer.json`:
 
   ```console
   $ composer test
   ```
-You can turn on conditional tests with the `phpunit.xml` file. To do so:
+
+  But for now run like this:
+
+  ```console
+  $ vendor/bin/phpunit
+  ```
+
+Or your globally-installed phpunit phar, if you have one.
+
+TODO: You can turn on conditional tests with the `phpunit.xml` file. To do so:
 
 - Copy the `phpunit.xml.dist` file to `phpunit.xml`
 - Edit the `phpunit.xml` file to enable any specific functionality you want to test, as well as to provide appropriate test values.

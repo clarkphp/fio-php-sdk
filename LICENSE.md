@@ -1,7 +1,8 @@
 MIT License
 
 Copyright (c) 2020 Clark Everetts
-(If eventually useful to the project, Copyright could become that of Foundation for Interwallet Operability)
+
+(If eventually this becomes useful to the project, Copyright could become that of Foundation for Interwallet Operability)
 
 Permission is hereby granted, free of charge, to any person obtaining a copy
 of this software and associated documentation files (the "Software"), to deal

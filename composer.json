@@ -1,7 +1,7 @@
 {
   "name": "clarkphp/fio-php-sdk",
   "type": "library",
-  "description": "Client for using Foundation for Interwallet Operability Web API",
+  "description": "Client SDK for using Foundation for Interwallet Operability Web API",
   "license": "MIT",
   "authors": [
     {
