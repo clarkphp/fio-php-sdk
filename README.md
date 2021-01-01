@@ -11,6 +11,11 @@ Content to be based on SDK READMEs found at:
 
 If you'd like to contribute, please see the [CONTRIBUTING.md](CONTRIBUTING.md) file.
 
+- Please Note
+  **Network** test group tests are excluded by default, because accessing
+  remote resources is normally a test smell. See phpunit.xml.dist *groups* section.
+  Change `Network` to `default`to run Network tests.
+
 ## Versions
 
 | Version | Status     | Packagist           | Namespace    | Repo                | Docs                | PSR-18 | PHP Version |

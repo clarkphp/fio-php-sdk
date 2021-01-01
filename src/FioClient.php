@@ -14,15 +14,10 @@ use GuzzleHttp\Client as GuzzleClient;
 use GuzzleHttp\Psr7\Request as GuzzleRequest;
 use GuzzleHttp\Psr7\Utils;
 
-/**
- * Class FioClient
- *
- * @todo Eventually, use factories to allow use of any PSR-18-compliant client
- *
- * @package ClarkPhp\FioPhpSdk
- */
 final class FioClient
 {
+    // @todo Eventually, use factories to allow use of any PSR-18-compliant client
+
     /** @todo move these constants to a validator or somesuch class */
     const FIO_ADDR_MIN_LENGTH = 3; // I think the regex's minimum length isn't necessary
     const FIO_ADDR_MAX_LENGTH = 64;

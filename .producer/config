@@ -1,5 +1,5 @@
 ; custom @package docblock value
-package = ClarkPhp.FioSdk
+; package = ClarkPhp\FioPhpSdk
 
 ; commands to use for phpunit and phpdoc
 [commands]

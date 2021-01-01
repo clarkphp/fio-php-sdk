@@ -18,7 +18,7 @@
   </testsuites>
   <groups>
     <exclude>
-      <group>default</group>
+      <group>Network</group>
     </exclude>
   </groups>
 </phpunit>

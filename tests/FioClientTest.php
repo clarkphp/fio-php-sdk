@@ -42,6 +42,10 @@ class FioClientTest extends TestCase
     }
 
     /**
+     * Please note that Network test group is by default not invoked, because accessing
+     * remote resources is normally a test smell. See phpunit.xml.dist groups section.
+     * Change 'Network' to 'default' or something else to run Network tests.
+     *
      * @group Network
      * @group Validation
      */

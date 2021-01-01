@@ -42,6 +42,11 @@ To run tests:
 
 Or your globally-installed phpunit phar, if you have one.
 
+- Please Note
+  **Network** test group tests are excluded by default, because accessing
+  remote resources is normally a test smell. See phpunit.xml.dist *groups* section.
+  Change `Network` to `default`to run Network tests.
+
 TODO: You can turn on conditional tests with the `phpunit.xml` file. To do so:
 
 - Copy the `phpunit.xml.dist` file to `phpunit.xml`
