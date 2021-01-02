@@ -15,6 +15,8 @@ use GuzzleHttp\Client as GuzzleClient;
 use GuzzleHttp\Exception\RequestException;
 use GuzzleHttp\Psr7\Request as GuzzleRequest;
 use GuzzleHttp\Psr7\Utils;
+use Psr\Http\Message\ResponseInterface;
+use Psr\Http\Message\StreamInterface;
 
 final class FioClient
 {
@@ -25,8 +27,11 @@ final class FioClient
     /** @var GuzzleClient */
     private $httpClient;
 
-    /** @var \stdClass|null */
-    private $errorObject;
+    /** @var ResponseInterface|null */
+    private $errorResponse;
+
+    /** @var \stdClass */
+    private $responseBody;
 
     public function __construct(GuzzleClient $client)
     {
@@ -40,7 +45,7 @@ final class FioClient
 
     public function isFioNameAvailable(string $nameToCheck): ?bool
     {
-        $this->errorObject = null; // this will lead to regret...
+        $this->errorResponse = null;
 
         if (!$this->isFioNameValid($nameToCheck)) {
             throw new Exception(
@@ -70,31 +75,30 @@ final class FioClient
     public function extractErrorDetailsFromRequest(RequestException $e): ?object
     {
         if ($e->hasResponse()) {
-            $this->errorObject = $this->convertStreamToObject($e);
-            if (0 !== ($errNum = self::getResponseErrorNumber($e))) {
-                $method = "extractError{$errNum}Details";
-                return self::$method();
+            $this->errorResponse = $e->getResponse();
+            $this->responseBody = $this->convertStreamToObject($e->getResponse()->getBody());
+            if (0 !== ($errNum = $e->getResponse()->getStatusCode())) {
+                $methodName = "extractError{$errNum}Details";
+                return $this->$methodName();
             }
         }
         return null;
     }
 
-    // @todo possibly should return a useful PHP class instead
-    private function convertStreamToObject(RequestException $e): \stdClass
+    // @todo possibly return a "useful" PHP class instead?
+    private function convertStreamToObject(StreamInterface $body): \stdClass
     {
-        return json_decode((string) $e->getResponse()->getBody());
+        return json_decode((string) $body);
     }
 
-    // this might not need to be public
     public function getResponseErrorNumber(): int
     {
-        return $this->errorObject->code ?? 0;
+        return $this->errorResponse->getStatusCode();
     }
 
-    // this might not need to be public
     public function getResponseErrorMessage(): string
     {
-        return $this->errorObject->message ?? '';
+        return $this->errorResponse->getReasonPhrase();
     }
 
     /**
