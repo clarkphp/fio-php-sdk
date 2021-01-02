@@ -58,18 +58,18 @@ class FioClientTest extends TestCase
      */
     public function testIsFioNameAvailable()
     {
-        $this->assertTrue(
-            $this->fioClient->isFioNameAvailable('idonotexist@idonotexist')
-        );
+        $this->assertTrue($this->fioClient->isFioNameAvailable('idonotexist@idonotexist'));
 
-        $this->assertFalse(
-            $this->fioClient->isFioNameAvailable('fiodemo@edgetest')
-        );
+        $this->assertFalse($this->fioClient->isFioNameAvailable('fiodemo@edgetest'));
 
-        $this->expectExceptionMessage(
-            'has invalid format. See https://developers.fioprotocol.io/api/api-spec/models/fio-address'
-        );
+        $this->expectExceptionMessage('has invalid format. See https://developers.fioprotocol.io/api/api-spec/models/fio-address');
         $this->fioClient->isFioNameAvailable('');
+    }
+
+    /** @group Network */
+    public function testIsFioNameRegistered()
+    {
+        $this->assertTrue($this->fioClient->isFioNameRegistered('fiodemo@edgetest'));
     }
 
     /** @group Validation */
