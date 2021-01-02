@@ -30,7 +30,10 @@ final class FioClient
     /** @var ResponseInterface|null */
     private $errorResponse;
 
-    /** @var \stdClass */
+    /** @var string */
+    private $errorDetails;
+
+    /** @var \stdClass|null */
     private $responseBody;
 
     public function __construct(GuzzleClient $client)
@@ -60,7 +63,7 @@ final class FioClient
                         ->withBody(Utils::streamFor('{"fio_name":"' . $nameToCheck . '"}'))
                 ))->getBody();
         } catch (RequestException $e) {
-                $this->extractErrorDetailsFromRequest($e);
+                $this->errorDetails = $this->extractErrorDetailsFromRequest($e);
         }
 
         return null;
@@ -72,17 +75,18 @@ final class FioClient
     }
 
     //@todo Refactor error handling to a separate class
-    public function extractErrorDetailsFromRequest(RequestException $e): ?object
+    // should this return an error object of some sort?
+    public function extractErrorDetailsFromRequest(RequestException $e): string
     {
         if ($e->hasResponse()) {
             $this->errorResponse = $e->getResponse();
             $this->responseBody = $this->convertStreamToObject($e->getResponse()->getBody());
             if (0 !== ($errNum = $e->getResponse()->getStatusCode())) {
                 $methodName = "extractError{$errNum}Details";
-                return $this->$methodName();
+                return $this->$methodName($this->responseBody);
             }
         }
-        return null;
+        return '';
     }
 
     // @todo possibly return a "useful" PHP class instead?
@@ -151,25 +155,6 @@ final class FioClient
     }
 
      */
-        if ($e->hasResponse()) {
-            $error = json_decode($e->getResponse()->getBody());
-            $this->error = $error;
-            $message = "";
-            if (isset($error->type)) {
-                $message .= $error->type . ": ";
-            }
-            $message .= $error->message;
-            if (isset($error->fields)) {
-                $message .= " fields: {";
-                foreach ($error->fields[0] as $key => $value) {
-                    $message .= $key . ": " . $value . ", ";
-                }
-                $message .= "}";
-            }
-            throw new Exception($message);
-        } else {
-            $this->error = null;
-        }
 
         return new \stdClass();
     }
@@ -207,47 +192,49 @@ final class FioClient
 
     /**
      * @see https://developers.fioprotocol.io/api/api-spec/models/error-404
-     * @return object
+     *
+     * @param   \stdClass  $apiResponseBody
+     * @return string
      */
-    private function extractError404Details(): object
+    private function extractError404Details(\stdClass $apiResponseBody): string
     {
-    /* documentation page
-    {
-      "type": "object",
-      "title": "Error 404",
-      "properties": {
-        "message": {
-          "type": "string",
-          "description": "Call specific error message.",
-          "example": "Public address not found"
+        /* documentation page
+        {
+          "type": "object",
+          "title": "Error 404",
+          "properties": {
+            "message": {
+              "type": "string",
+              "description": "Call specific error message.",
+              "example": "Public address not found"
+            }
+          }
         }
-      }
-    }
 
-    Actual value
-class stdClass#134 (3) {
-  public $code =>
-  int(404)
-  public $message =>
-  string(9) "Not Found"
-  public $error =>
-  class stdClass#129 (4) {
-    public $code =>
-    int(0)
-    public $name =>
-    string(9) "exception"
-    public $what =>
-    string(11) "unspecified"
-    public $details =>
-    array(1) {
-      [0] =>
-      class stdClass#135 (4) {
-        ...
-      }
-    }
-  }
-}
-     */
-        return new \stdClass();
+        Value from actual run:
+        stdClass Object
+        (
+            [code] => 404
+            [message] => Not Found
+            [error] => stdClass Object
+                (
+                    [code] => 0
+                    [name] => exception
+                    [what] => unspecified
+                    [details] => Array
+                        (
+                            [0] => stdClass Object
+                                (
+                                    [message] => Unknown Endpoint
+                                    [file] => http_plugin.cpp
+                                    [line_number] => 353
+                                    [method] => handle_http_request
+                                )
+                        )
+                )
+        )
+        */
+
+        return (($apiResponseBody->error->details)[0])->message ?? '';
     }
 }

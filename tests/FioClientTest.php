@@ -94,27 +94,25 @@ class FioClientTest extends TestCase
         $this->assertTrue($this->fioClient->isFioNameValid('vAlId-foRmaT1@FIO-address1'));
     }
 
-    /** @group Network */
-    public function testGetErrorCodeFromRequestException()
+    /**
+     * @group Network
+     * @group ErrorHandling
+     */
+    public function testExtractError404Details()
     {
-        $this->callNonExistentEndPoint();
+        $message = $this->callNonExistentEndPoint();
         $this->assertSame(404, $this->fioClient->getResponseErrorNumber());
-        $this->assertSame(
-//            '{"code":404,"message":"Not Found","error":{"code":0,"name":"exception","what":"unspecified","details":[{"message":"Unknown Endpoint","file":"http_plugin.cpp","line_number":353,"method":"handle_http_request"}]}}',
-            'Not Found',
-            $this->fioClient->getResponseErrorMessage()
-        );
+        $this->assertSame('Not Found', $this->fioClient->getResponseErrorMessage());
+        $this->assertSame($message, 'Unknown Endpoint');
     }
 
     private function callNonExistentEndPoint()
     {
         try {
-            $response = $this->httpClient->send(
+            $this->httpClient->send(
                 (new GuzzleRequest('POST', 'idonotexist'))
                     ->withBody(Utils::streamFor('{"fio_name":"wilecoyote"}'))
             );
-
-            return (string) $response->getBody();
         } catch(RequestException $e) {
             return $this->fioClient->extractErrorDetailsFromRequest($e);
         }

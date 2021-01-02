@@ -24,6 +24,7 @@ $candidateFioNames = [
     'bad-@fio-address',
 ];
 
+// Example: check if the desired FIO name is available
 try {
     $client = new FioClient(
         new GuzzleClient(
