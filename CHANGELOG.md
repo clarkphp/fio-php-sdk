@@ -4,6 +4,22 @@ This file documents, in reverse chronological order by release, all notable chan
 
 - See https://phly.github.io/keep-a-changelog/ for a tool to help keep changelogs up to date.
 
+## 0.0.2 - 2021-01-02
+### Added
+- Very initial handling of error response from the API
+
+### Changed
+- A lot, but, c'mon, this is nowhere near Alpha
+
+### Deprecated
+- Nothing
+
+### Removed
+- Nothing
+
+### Fixed
+- Nothing
+
 ## 0.0.1 - 2021-01-01
 ### Added
 - Client can do basic FIO address availability and validity checks
