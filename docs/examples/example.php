@@ -12,6 +12,9 @@ namespace YourProjectNamespace;
 
 use ClarkPhp\FioPhpSdk\FioClient;
 use GuzzleHttp\Client as GuzzleClient;
+// @todo Use factories to allow use of any PSR-18-compliant client,
+// removing dependency on particular implementations
+
 
 require __DIR__ . '/../../vendor/autoload.php';
 
@@ -37,5 +40,4 @@ try {
     }
 } catch (\Throwable $e) {
     print $e->getMessage() . PHP_EOL;
-    exit(1);
 }
