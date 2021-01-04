@@ -58,7 +58,7 @@ TBD
 
 ## Release Branches
 
-TBD
+This package follows [semantic versioning](https://semver.org/) Remaining content of this section TBD.
 
 ## Recommended Workflow for Contributions
 
