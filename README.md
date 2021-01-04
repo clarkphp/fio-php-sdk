@@ -7,14 +7,27 @@ Content to be based on SDK READMEs found at:
 - https://github.com/fioprotocol/fio-go
 - https://github.com/fioprotocol/fiosdk_ios
 
+## Installation in your project
+
+Editing your composer.json file is so 2015. Use the command line tooling or your IDE! :-)
+
+```shell
+composer require clarkphp/fio-php-sdk
+```
+
+## Unit Tests and Code Quality
+
+Run the tests as shown below. For more on the tests, generating code coverage
+reports, and static analysis tools, see [CONTRIBUTING.md](CONTRIBUTING.md).
+
+```shell
+$ cd /path/to/fio-client/
+$ phpunit
+```
+
 ## Contributing
 
 If you'd like to contribute, please see the [CONTRIBUTING.md](CONTRIBUTING.md) file.
-
-- Please Note
-  **Network** test group tests are excluded by default, because accessing
-  remote resources is normally a test smell. See phpunit.xml.dist *groups* section.
-  Change `Network` to `default`to run Network tests.
 
 ## Versions
 

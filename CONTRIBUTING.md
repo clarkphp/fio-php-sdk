@@ -21,12 +21,11 @@ To run tests:
 
 - Install dependencies via composer:
 
-  ```console
+  ```shell
   $ composer install
   ```
 
   If you don't have `composer` installed, download it from https://getcomposer.org/download/
-
 
 - TODO: Run the tests using the "test" command shipped in the `composer.json`:
 
@@ -42,15 +41,39 @@ To run tests:
 
 Or your globally-installed phpunit phar, if you have one.
 
-- Please Note
-  **Network** test group tests are excluded by default, because accessing
-  remote resources is normally a test smell. See phpunit.xml.dist *groups* section.
-  Change `Network` to `default`to run Network tests.
+Please Note:
+- **Network** test group tests are excluded by default, because accessing
+  remote resources is normally a test smell.
+- Copy the `phpunit.xml.dist` file to `phpunit.xml`
+- In the *\<groups\>\<exclude\>* section, change `Network` to `default`to run Network tests.
 
-TODO: You can turn on conditional tests with the `phpunit.xml` file. To do so:
-
+TODO: Turn on conditional tests with the `phpunit.xml` file. To do so:
 - Copy the `phpunit.xml.dist` file to `phpunit.xml`
 - Edit the `phpunit.xml` file to enable any specific functionality you want to test, as well as to provide appropriate test values.
+
+## Code Coverage Report
+- Read https://phpunit.readthedocs.io/en/9.5/code-coverage-analysis.html
+- Make sure you have [Xdebug](https://xdebug.org/) installed and enabled.
+- Copy the `phpunit.xml.dist` file to `phpunit.xml` and change the `coverage` element to read as follows:
+
+```xml
+<coverage cacheDirectory=".phpunit-cache-dir">
+    <include>
+        <directory suffix=".php">src</directory>
+    </include>
+    <report>
+        <html outputDirectory="html-coverage-rpt" lowUpperBound="50" highLowerBound="90"/>
+    </report>
+</coverage>
+```
+
+Now, while running tests, PHPUnit will create and use the directories:
+- `/path/to/fio-client/html-coverage-rpt` (destination for the HTML report)
+- `/path/to/fio-client/.phpunit-cache-dir`
+  See [cachedirectory-attribute](https://phpunit.readthedocs.io/en/9.5/configuration.html#the-cachedirectory-attribute)
+
+Visit the file
+`html-coverage-rpt/index.html` in your web browser to view the coverage report.
 
 ## Running Coding Standards Checks
 
