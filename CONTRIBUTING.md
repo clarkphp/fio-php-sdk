@@ -58,7 +58,19 @@ TBD
 
 ## Release Branches
 
-This package follows [semantic versioning](https://semver.org/) Remaining content of this section TBD.
+This package follows semantic versioning; the way version numbers change convey developer-centric meaning about
+what has been modified from one version to the next.
+
+Given a version number MAJOR.MINOR.PATCH
+
+- the PATCH version increments upon the release of backwards *compatible* bug fixes
+- the MINOR version increments upon the release of new, backwards *compatible*, functionality (no breaks to the API)
+- the MAJOR version increments upon the release of backwards *incompatible* API changes
+- Additional labels (e.g., alpha, beta, rc.1) for pre-release and build metadata are available as extensions to the MAJOR.MINOR.PATCH format.
+
+See https://semver.org/ for more details.
+
+Remaining content of this section TBD.
 
 ## Recommended Workflow for Contributions
 
